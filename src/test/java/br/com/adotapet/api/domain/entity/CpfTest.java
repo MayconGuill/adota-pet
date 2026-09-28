@@ -1,5 +1,6 @@
 package br.com.adotapet.api.domain.entity;
 
+import br.com.adotapet.api.domain.exception.CpfInvalidoException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -30,6 +31,6 @@ class CpfTest {
     )
     @DisplayName("")
     void recusar(String cpf) {
-        assertThrows(IllegalArgumentException.class, () -> new Cpf(cpf));
+        assertThrows(CpfInvalidoException.class, () -> new Cpf(cpf));
     }
 }

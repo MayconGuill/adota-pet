@@ -1,5 +1,6 @@
 package br.com.adotapet.api.domain.entity;
 
+import br.com.adotapet.api.domain.exception.BusinessException;
 import br.com.adotapet.api.domain.util.DataUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -39,13 +40,13 @@ class SolicitacaoTest {
     @Test
     @DisplayName("Lança um erro ao cadastrar solicitação com animal adotado")
     void lancaExceptionAoCadastrarSolicitacaoComAnimalAdotado() {
-        assertThrows(IllegalArgumentException.class, () -> new Solicitacao(novoSolicitante(), animalAdotado()));
+        assertThrows(BusinessException.class, () -> new Solicitacao(novoSolicitante(), animalAdotado()));
     }
 
     @Test
     @DisplayName("Lança um erro ao cadastrar solicitação com animal já em processo de adoção")
     void lancaExceptionAoCadastrarSolicitacaoComAnimalEmProcessoDeAdocao() {
-        assertThrows(IllegalArgumentException.class, () -> new Solicitacao(novoSolicitante(), animalEmProcessoAdocao()));
+        assertThrows(BusinessException.class, () -> new Solicitacao(novoSolicitante(), animalEmProcessoAdocao()));
     }
 
     @Test
@@ -63,7 +64,7 @@ class SolicitacaoTest {
     void lancaExceptionAoAprovarUmaSolicitacaoComStatusAprovado() {
         var solicitacao = solicitacaoAprovada();
 
-        assertThrows(IllegalArgumentException.class, solicitacao::aprovar);
+        assertThrows(BusinessException.class, solicitacao::aprovar);
     }
 
     @Test
@@ -71,7 +72,7 @@ class SolicitacaoTest {
     void lancaExceptionAoAprovarUmaSolicitacaoComStatusReprovado() {
         var solicitacao = solicitacaoReprovada();
 
-        assertThrows(IllegalArgumentException.class, solicitacao::aprovar);
+        assertThrows(BusinessException.class, solicitacao::aprovar);
     }
 
     @Test
@@ -90,7 +91,7 @@ class SolicitacaoTest {
     void lancaExceptionAoReprovarUmaSolicitacaoComStatusAprovado() {
         var solicitacao = solicitacaoAprovada();
 
-        assertThrows(IllegalArgumentException.class, () -> solicitacao.reprovar("Qualquer justificativa"));
+        assertThrows(BusinessException.class, () -> solicitacao.reprovar("Qualquer justificativa"));
     }
 
     @Test
@@ -98,7 +99,7 @@ class SolicitacaoTest {
     void lancaExceptionAoReprovarUmaSolicitacaoComStatusReprovado() {
         var solicitacao = solicitacaoReprovada();
 
-        assertThrows(IllegalArgumentException.class, () -> solicitacao.reprovar("Qualquer justificativa"));
+        assertThrows(BusinessException.class, () -> solicitacao.reprovar("Qualquer justificativa"));
     }
 
     @Test
@@ -114,7 +115,7 @@ class SolicitacaoTest {
     void lancaExceptionAoReprovarUmaSolicitacaoComJustificativaVazio() {
         var solicitacao = novaSolicitacao();
 
-        assertThrows(IllegalArgumentException.class, () -> solicitacao.reprovar(""));
+        assertThrows(BusinessException.class, () -> solicitacao.reprovar(""));
     }
 
     @Test
@@ -122,7 +123,7 @@ class SolicitacaoTest {
     void lancaExceptionAoReprovarUmaSolicitacaoComJustificativaEmBranco() {
         var solicitacao = novaSolicitacao();
 
-        assertThrows(IllegalArgumentException.class, () -> solicitacao.reprovar("  "));
+        assertThrows(BusinessException.class, () -> solicitacao.reprovar("  "));
     }
 
     private Solicitacao novaSolicitacao() {

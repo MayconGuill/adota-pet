@@ -1,5 +1,6 @@
 package br.com.adotapet.api.domain.entity;
 
+import br.com.adotapet.api.domain.exception.BusinessException;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -127,21 +128,21 @@ public class Animal {
 
     void iniciarProcessoAdocao() {
         if (this.status != StatusAnimal.DISPONIVEL) {
-            throw new IllegalArgumentException("Não foi possível iniciar o processo de adoção, pois o status " + this.status + " não se encontra DISPONIVEL.");
+            throw new BusinessException("Não foi possível iniciar o processo de adoção, pois o status " + this.status + " não se encontra DISPONIVEL.");
         }
         this.status = StatusAnimal.EM_PROCESSO_ADOCAO;
     }
 
     void adotar() {
         if (this.status != StatusAnimal.EM_PROCESSO_ADOCAO) {
-            throw new IllegalArgumentException("Não foi possível adotar o animal de ID " + id + ", o status já se encontra como " + this.status);
+            throw new BusinessException("Não foi possível adotar o animal de ID " + id + ", o status já se encontra como " + this.status);
         }
         this.status = StatusAnimal.ADOTADO;
     }
 
     void disponibilizarNovamente() {
         if (this.status != StatusAnimal.EM_PROCESSO_ADOCAO) {
-            throw new IllegalArgumentException("Não foi possível disponibilizar o animal de ID " + id + ", o status já se encontra como " + this.status);
+            throw new BusinessException("Não foi possível disponibilizar o animal de ID " + id + ", o status já se encontra como " + this.status);
         }
         this.status = StatusAnimal.DISPONIVEL;
     }

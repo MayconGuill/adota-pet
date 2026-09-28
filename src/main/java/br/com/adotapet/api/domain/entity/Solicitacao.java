@@ -1,5 +1,6 @@
 package br.com.adotapet.api.domain.entity;
 
+import br.com.adotapet.api.domain.exception.BusinessException;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -40,7 +41,7 @@ public class Solicitacao {
         this.animal = Objects.requireNonNull(animal, "O campo animal é obrigatório");
 
         if (animal.getStatus() != StatusAnimal.DISPONIVEL) {
-            throw new IllegalArgumentException("Não é possível solicitar um animal que não está disponível para adoção.");
+            throw new BusinessException("Não é possível solicitar um animal que não está disponível para adoção.");
         }
 
         animal.iniciarProcessoAdocao();
@@ -63,7 +64,7 @@ public class Solicitacao {
         this.justificativa = Objects.requireNonNull(justificativa, "A justificativa é obrigatória para reprovar uma solicitação.");
 
         if (justificativa.isBlank()) {
-            throw new IllegalArgumentException("Justificativa é obrigatório para reprovação.");
+            throw new BusinessException("Justificativa é obrigatório para reprovação.");
         }
 
         animal.disponibilizarNovamente();
@@ -74,7 +75,7 @@ public class Solicitacao {
 
     private void validarPendente() {
         if (this.status != StatusSolicitacao.PENDENTE) {
-            throw new IllegalArgumentException("A solicitação não se encontra com status pendente. (" + this.status + ")");
+            throw new BusinessException("A solicitação não se encontra com status pendente. (" + this.status + ")");
         }
     }
 

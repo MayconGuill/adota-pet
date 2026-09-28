@@ -1,5 +1,6 @@
 package br.com.adotapet.api.domain.entity;
 
+import br.com.adotapet.api.domain.exception.BusinessException;
 import br.com.adotapet.api.domain.util.DataUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -42,7 +43,7 @@ class AnimalTest {
     void lancaExceptionAoIniciarProcessoDeAdocaoComStatusAdotado() {
         Animal animal = animalAdotado();
 
-        assertThrows(IllegalArgumentException.class, animal::iniciarProcessoAdocao);
+        assertThrows(BusinessException.class, animal::iniciarProcessoAdocao);
     }
 
     @Test
@@ -50,7 +51,7 @@ class AnimalTest {
     void lancaExceptionAoIniciarProcessoDeAdocaoComStatusEmProcessoAdocao() {
         Animal animal = animalEmProcessoAdocao();
 
-        assertThrows(IllegalArgumentException.class, animal::iniciarProcessoAdocao);
+        assertThrows(BusinessException.class, animal::iniciarProcessoAdocao);
     }
 
     @Test
@@ -67,7 +68,7 @@ class AnimalTest {
     void lancaExceptionAoAdotarUmPetComStatusDisponivel() {
         Animal animal = novoAnimal();
 
-        assertThrows(IllegalArgumentException.class, animal::adotar);
+        assertThrows(BusinessException.class, animal::adotar);
     }
 
     @Test
@@ -75,7 +76,7 @@ class AnimalTest {
     void lancaExceptionAoAdotarUmPetComStatusAdotado() {
         Animal animal = animalAdotado();
 
-        assertThrows(IllegalArgumentException.class, animal::adotar);
+        assertThrows(BusinessException.class, animal::adotar);
     }
 
     @Test
@@ -92,7 +93,7 @@ class AnimalTest {
     void lancaExceptionAoDisponibilizarNovamenteUmPetComStatusAdotado() {
         Animal animal = animalAdotado();
 
-        assertThrows(IllegalArgumentException.class, animal::disponibilizarNovamente);
+        assertThrows(BusinessException.class, animal::disponibilizarNovamente);
     }
 
     @Test
@@ -100,7 +101,7 @@ class AnimalTest {
     void lancaExceptionAoDisponibilizarNovamenteUmPetComStatusDisponivel() {
         Animal animal = novoAnimal();
 
-        assertThrows(IllegalArgumentException.class, animal::disponibilizarNovamente);
+        assertThrows(BusinessException.class, animal::disponibilizarNovamente);
     }
 
     @Test

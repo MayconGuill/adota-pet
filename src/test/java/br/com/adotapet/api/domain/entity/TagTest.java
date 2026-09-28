@@ -1,5 +1,6 @@
 package br.com.adotapet.api.domain.entity;
 
+import br.com.adotapet.api.domain.exception.BusinessException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -23,13 +24,13 @@ class TagTest {
     @Test
     @DisplayName("Lança um erro ao tentar cadastrar uma TAG em branco")
     void lancaExceptionAoCadastrarTagComNomeEmBranco() {
-        assertThrows(IllegalArgumentException.class, () -> new Tag(" "));
+        assertThrows(BusinessException.class, () -> new Tag(" "));
     }
 
     @Test
     @DisplayName("Lança um erro ao tentar cadastrar uma TAG em vazio")
     void lancaExceptionAoCadastrarTagComNomeVazio() {
-        assertThrows(IllegalArgumentException.class, () -> new Tag(""));
+        assertThrows(BusinessException.class, () -> new Tag(""));
     }
 
     @Test

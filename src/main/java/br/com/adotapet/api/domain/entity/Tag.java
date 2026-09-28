@@ -1,5 +1,6 @@
 package br.com.adotapet.api.domain.entity;
 
+import br.com.adotapet.api.domain.exception.BusinessException;
 import jakarta.persistence.*;
 
 import java.util.Locale;
@@ -27,7 +28,7 @@ public class Tag {
                 .trim()
                 .toUpperCase(Locale.ROOT);
         if (nomeValidado.isBlank()) {
-            throw new IllegalArgumentException("Nome da TAG não pode ser vazio.");
+            throw new BusinessException("Nome da TAG não pode ser vazio.");
         }
 
         return nomeValidado;

@@ -1,5 +1,6 @@
 package br.com.adotapet.api.domain.entity;
 
+import br.com.adotapet.api.domain.exception.CpfInvalidoException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
@@ -18,11 +19,11 @@ public record Cpf(
         Objects.requireNonNull(cpf, "CPF não pode ser nulo.");
 
         if (!FORMATO_VALIDO.matcher(cpf).matches()) {
-            throw new IllegalArgumentException("CPF com formato inválido.");
+            throw new CpfInvalidoException("CPF com formato inválido.");
         }
 
         if (!isCpfValido(cpf)) {
-            throw new IllegalArgumentException("CPF inválido.");
+            throw new CpfInvalidoException("CPF inválido.");
         }
     }
 

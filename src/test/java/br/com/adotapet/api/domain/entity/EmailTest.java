@@ -1,5 +1,6 @@
 package br.com.adotapet.api.domain.entity;
 
+import br.com.adotapet.api.domain.exception.EmailInvalidoException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -23,7 +24,7 @@ class EmailTest {
     @MethodSource("emailInvalidos")
     @DisplayName("Lança erro com email inválido")
     void recusar(String email) {
-        assertThrows(IllegalArgumentException.class, () -> new Email(email));
+        assertThrows(EmailInvalidoException.class, () -> new Email(email));
     }
 
     @Test

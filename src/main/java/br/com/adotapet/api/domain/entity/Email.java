@@ -1,5 +1,6 @@
 package br.com.adotapet.api.domain.entity;
 
+import br.com.adotapet.api.domain.exception.EmailInvalidoException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
@@ -17,7 +18,7 @@ public record Email(
     public Email {
         Objects.requireNonNull(email, "E-mail não pode ser nulo.");
         if (!FORMATO_VALIDO.matcher(email).matches()) {
-            throw new IllegalArgumentException("E-mail com formato inválido.");
+            throw new EmailInvalidoException("E-mail com formato inválido.");
         }
     }
 }
