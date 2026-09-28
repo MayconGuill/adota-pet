@@ -232,4 +232,21 @@ public class Animal {
     public int hashCode() {
         return getClass().hashCode();
     }
+
+    @Override
+    public String toString() {
+        return "Animal{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", dataNascimento=" + dataNascimento +
+                ", sexo=" + sexo +
+                ", especie=" + especie +
+                ", porte=" + porte +
+                ", historia='" + historia + '\'' +
+                ", observacao='" + observacao + '\'' +
+                ", status=" + status +
+                ", criadoEm=" + criadoEm +
+                ", atualizadoEm=" + atualizadoEm +
+                '}';
+    }
 }
