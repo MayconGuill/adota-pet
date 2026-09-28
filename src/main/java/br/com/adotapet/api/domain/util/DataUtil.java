@@ -1,6 +1,7 @@
 package br.com.adotapet.api.domain.util;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public final class DataUtil {
@@ -15,7 +16,7 @@ public final class DataUtil {
         return LocalDate.parse(data, DT);
     }
 
-    public static LocalDate newDateTime(String data) {
-        return LocalDate.parse(data, DTS);
+    public static LocalDateTime newDateTime(String data) {
+        return LocalDateTime.parse(data, DTS);
     }
 }
