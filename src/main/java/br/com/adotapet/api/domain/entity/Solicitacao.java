@@ -62,6 +62,10 @@ public class Solicitacao {
 
         this.justificativa = Objects.requireNonNull(justificativa, "A justificativa é obrigatória para reprovar uma solicitação.");
 
+        if (justificativa.isBlank()) {
+            throw new IllegalArgumentException("Justificativa é obrigatório para reprovação.");
+        }
+
         animal.disponibilizarNovamente();
 
         status = StatusSolicitacao.REPROVADO;
