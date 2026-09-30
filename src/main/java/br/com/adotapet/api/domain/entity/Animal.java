@@ -60,7 +60,7 @@ public class Animal {
     )
     private Set<Tag> tags = new HashSet<>();
 
-    private Animal() {
+    protected Animal() {
     }
 
     private Animal(Builder builder) {

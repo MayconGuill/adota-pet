@@ -1,7 +1,6 @@
 package br.com.adotapet.api.domain.entity;
 
 import br.com.adotapet.api.domain.exception.BusinessException;
-import br.com.adotapet.api.domain.util.DataUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -11,6 +10,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
+import static br.com.adotapet.api.util.AnimalUtil.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AnimalTest {
@@ -24,7 +24,7 @@ class AnimalTest {
     @Test
     @DisplayName("Animal cadastrado inicia com status disponível")
     void cadastraAnimalJaComStatusDisponivel() {
-        Animal animal = novoAnimal();
+        Animal animal = criarAnimal();
 
         assertEquals(StatusAnimal.DISPONIVEL, animal.getStatus());
     }
@@ -32,7 +32,7 @@ class AnimalTest {
     @Test
     @DisplayName("Inicia processo de adoção de pet disponível com sucesso")
     void deveIniciarProcessoDeAdocaoComStatusAnimalDisponivel() {
-        Animal animal = novoAnimal();
+        Animal animal = criarAnimal();
 
         animal.iniciarProcessoAdocao();
         assertEquals(StatusAnimal.EM_PROCESSO_ADOCAO, animal.getStatus());
@@ -66,7 +66,7 @@ class AnimalTest {
     @Test
     @DisplayName("Lança erro ao adotar pet com status disponivel")
     void lancaExceptionAoAdotarUmPetComStatusDisponivel() {
-        Animal animal = novoAnimal();
+        Animal animal = criarAnimal();
 
         assertThrows(BusinessException.class, animal::adotar);
     }
@@ -99,7 +99,7 @@ class AnimalTest {
     @Test
     @DisplayName("Lança erro ao tentar disponibilizar novamente um pet com status disponivel")
     void lancaExceptionAoDisponibilizarNovamenteUmPetComStatusDisponivel() {
-        Animal animal = novoAnimal();
+        Animal animal = criarAnimal();
 
         assertThrows(BusinessException.class, animal::disponibilizarNovamente);
     }
@@ -138,7 +138,7 @@ class AnimalTest {
     @Test
     @DisplayName("Remove TAG do animal")
     void removeTagDoAnimal() {
-        Animal animal = novoAnimal();
+        Animal animal = criarAnimal();
         Tag tag = new Tag("Brincalhão");
 
         animal.adicionarTag(tag);
@@ -150,14 +150,14 @@ class AnimalTest {
     @Test
     @DisplayName("Lança erro ao remover TAG nulo")
     void lancaExceptionAoRemoverTagNulo() {
-        Animal animal = novoAnimal();
+        Animal animal = criarAnimal();
         assertThrows(NullPointerException.class, () -> animal.removerTag(null));
     }
 
     @Test
     @DisplayName("Adiciona foto ao animal")
     void adicionaFotoAoAnimal() {
-        Animal animal = novoAnimal();
+        Animal animal = criarAnimal();
         Foto foto = new Foto("teste", "teste.com.br", "teste");
 
         animal.adicionarFoto(foto);
@@ -167,7 +167,7 @@ class AnimalTest {
     @Test
     @DisplayName("Lança um erro ao tentar adicionar foto nulo")
     void lancaExceptionAoTentarAdicionarFotoNulo() {
-        Animal animal = novoAnimal();
+        Animal animal = criarAnimal();
 
         assertThrows(NullPointerException.class, () -> animal.adicionarFoto(null));
     }
@@ -175,8 +175,8 @@ class AnimalTest {
     @Test
     @DisplayName("Remove foto do animal")
     void removeFotoDoAnimal() {
-        Animal animal = novoAnimal();
-        Foto foto = new Foto("teste", "teste.com.br", "teste");
+        Animal animal = criarAnimal();
+        Foto foto = new Foto("file-name-1.jpg", "https://example.com/foto1.jpg","Y29udGVudC0x");
 
         animal.adicionarFoto(foto);
         animal.removerFoto(foto);
@@ -192,33 +192,5 @@ class AnimalTest {
                 Arguments.of("porte não pode ser null", (Consumer<Animal.Builder>) builder -> builder.porte(null)),
                 Arguments.of("historia não pode ser null", (Consumer<Animal.Builder>) builder -> builder.historia(null))
         );
-    }
-
-    private Animal novoAnimal() {
-        return new Animal.Builder()
-                .nome("Bob")
-                .dataNascimento(DataUtil.newDate("01/01/2026"))
-                .sexo(TipoSexo.MACHO)
-                .especie(TipoEspecie.CACHORRO)
-                .porte(TipoPorte.MEDIO)
-                .historia("O nome do cachorro é Bob")
-                .build();
-    }
-
-    private Animal animalAdotado() {
-        Animal animal = novoAnimal();
-
-        animal.iniciarProcessoAdocao();
-        animal.adotar();
-
-        return animal;
-    }
-
-    private Animal animalEmProcessoAdocao() {
-        Animal animal = novoAnimal();
-
-        animal.iniciarProcessoAdocao();
-
-        return animal;
     }
 }

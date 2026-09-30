@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;db_close_on_exit=false
+    driver-class: org.h2.Driver
+    username: sa
+    password: sa
+
+  jpa:
+    generate-dll: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true

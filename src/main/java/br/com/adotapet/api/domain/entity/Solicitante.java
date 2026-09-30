@@ -53,4 +53,16 @@ public class Solicitante {
     public String getHistoria() {
         return historia;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Solicitante that = (Solicitante) o;
+        return Objects.equals(nome, that.nome) && Objects.equals(email, that.email) && Objects.equals(telefone, that.telefone) && Objects.equals(cpf, that.cpf) && Objects.equals(historia, that.historia);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nome, email, telefone, cpf, historia);
+    }
 }
